@@ -1,17 +1,18 @@
 Rails.application.routes.draw do
-  get 'comments/index'
 
-  get 'comments/new'
+  get 'sites/index'
 
-  get 'comments/create'
+  get 'sites/new'
 
-  get 'comments/show'
+  get 'sites/create'
 
-  get 'comments/edit'
+  get 'sites/show'
 
-  get 'comments/update'
+  get 'sites/edit'
 
-  get 'comments/destroy'
+  get 'sites/update'
+
+  get 'sites/destroy'
 
   root 'static_pages#home'
 

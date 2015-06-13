@@ -5,4 +5,6 @@ class User < ActiveRecord::Base
 
 	has_many :Comments
 
+	validates :text, presence: true
+	
 end

@@ -1,0 +1,23 @@
+<h1>Sites#show</h1>
+<p>Find me in app/views/sites/show.html.erb</p>
+
+<h1><%= @site.address %></h1>
+<h3><%= @site.description %></h3>
+
+<hr>
+
+<% @site.comments.each do |comment| %>
+	<% if !comment.new_record? %>
+		<p><%= comment %></p>
+		<span>by <%= comment.user.fname %></span>
+	<% end %>
+<% end %>
+
+<br>
+<hr>
+
+<%= form_for [@site, @comment] do |f| %>
+	<%= f.label :text, "Add Comment" %>
+	<%= f.text_area :text %>
+	<%= f.submit %>
+<% end %>

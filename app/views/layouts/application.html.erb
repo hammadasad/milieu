@@ -8,6 +8,14 @@
 </head>
 <body>
 
+<div class="flash-notifications">
+	<% if flash[:notice] %>
+		<p id="notice"><%= flash[:notice] %></p>
+	<% elsif flash[:alert] %>
+		<p id="alert"><%= flash[:alert] %></p>
+	<% end %>
+</div>
+
 <%= yield %>
 
 </body>
