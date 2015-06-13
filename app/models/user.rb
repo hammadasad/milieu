@@ -3,6 +3,6 @@ class User < ActiveRecord::Base
 	# def authenticate
 	has_secure_password
 
-	has_manyu :Comments
+	has_many :Comments
 
 end
