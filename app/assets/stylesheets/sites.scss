@@ -4,8 +4,8 @@
 
 #map-canvas {
     margin: auto;
-  height: 900px;
-  width: 75%;
+    height: 900px;
+    width: 75%;
 }
 
 #sites-panel {
@@ -13,13 +13,55 @@
     float: left;
     width: 25%;
     height: 900px;
-    background-color: red;
+    top:70px;
+    background-color: #FF7A00;
     overflow-y: scroll;
     color: white;
+    position:relative;
 }
 
-#sites {
-    height: 100px;
+.sites {
+    height: 140px;
     width: 100%;
-    background-color: blue;
+    background-color: #CACACA;
+    border: 1px solid grey;
+}
+
+.address {
+    font-size:7px;
+    font-weight:bold;
+    color:black;
+    word-wrap: break-word;
+}
+
+.description {
+    font-size: 9px;
+    color:black;
+    word-wrap: break-word;
+}
+
+.status {
+    font-size: 10px;
+    color:grey;
+    word-wrap: break-word;
+}
+
+.pictureDiv {
+    width:50%;
+    height:140px;
+    float:left;
+}
+
+.textDiv {
+    width:50%;
+    height:140px;
+    float:right;
+}
+
+.wordwrap { 
+   white-space: pre-wrap;      /* CSS3 */   
+   white-space: -moz-pre-wrap; /* Firefox */    
+   white-space: -pre-wrap;     /* Opera <7 */   
+   white-space: -o-pre-wrap;   /* Opera 7 */    
+   word-wrap: break-word;      /* IE */
 }
