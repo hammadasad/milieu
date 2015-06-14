@@ -6,10 +6,13 @@ class SitesController < ApplicationController
   def index
     
     require 'csv'
-  
-    CSV.foreach(Rails.root + "app/assets/csv/activepermits2.csv") do |row|
-      parsed_site = Site.new
+    
+    counter = 0
 
+    CSV.foreach(Rails.root + "app/assets/csv/activepermits2.csv") do |row|
+      counter += 1
+
+      parsed_site = Site.new
       parsed_site.address = row[5] + " " + row[6] + " " + row[7]+ ",Toronto" 
       parsed_site.description = row[16]
       parsed_site.contact_info = "Ash"
@@ -17,6 +20,10 @@ class SitesController < ApplicationController
       parsed_site.type_of_property = row[18]
 
       parsed_site.save
+
+      if(counter == 20)
+        break
+      end
     end
 
     #@sites = Site.search(params[:search])

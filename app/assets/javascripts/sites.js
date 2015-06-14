@@ -5,6 +5,9 @@
 var Map = {};
 Map.nearby_marker_img = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
 
+mapStyle = [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#004358"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#1f8a70"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#1f8a70"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#fd7400"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-20}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-17}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"},{"visibility":"on"},{"weight":0.9}]},{"elementType":"labels.text.fill","stylers":[{"visibility":"on"},{"color":"#ffffff"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-10}]},{},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"weight":0.7}]}];
+
+
 function addMarkers(coords) {
 
     coords.forEach (function(coords) {
@@ -26,6 +29,7 @@ function initializeMap() {
     };
 
     Map.canvas = new google.maps.Map($('#map-canvas')[0], Map.options);
+    Map.canvas.setOptions({styles: mapStyle});
 
     if (Map.showMarkers) {
         var myMarker = new google.maps.Marker({
@@ -80,27 +84,27 @@ function hashMap() {
     return this;
 }
 
- function processData(aCsv) {
-    var data = Papa.parse(aCsv);
-    var listOfEntries = data.data;
-    console.log(listOfEntries);
-    var csvTitles = listOfEntries[0];
-    var dataSet = [];
-    var listofAddresses = [];
-    for(var x = 1 ; x <= 20; x++ ) {
-        dataSet.push(listOfEntries[x]);
-        var anAddress = listOfEntries[x][5] + " " + listOfEntries[x][6] + " " + listOfEntries[x][7] + ",Toronto";
-        console.log(anAddress);
-        var isContains = $.inArray(anAddress, listofAddresses);
-        if(isContains === -1) {
-            addressToLatLng(anAddress);
-            listofAddresses.push(anAddress);
-        }
-    }
+//  function processData(aCsv) {
+//     var data = Papa.parse(aCsv);
+//     var listOfEntries = data.data;
+//     console.log(listOfEntries);
+//     var csvTitles = listOfEntries[0];
+//     var dataSet = [];
+//     var listofAddresses = [];
+//     for(var x = 1 ; x <= 20; x++ ) {
+//         dataSet.push(listOfEntries[x]);
+//         var anAddress = listOfEntries[x][5] + " " + listOfEntries[x][6] + " " + listOfEntries[x][7] + ",Toronto";
+//         console.log(anAddress);
+//         var isContains = $.inArray(anAddress, listofAddresses);
+//         if(isContains === -1) {
+//             addressToLatLng(anAddress);
+//             listofAddresses.push(anAddress);
+//         }
+//     }
 
-    console.log(dataSet);
-    console.log(dataSet[0]);
-}
+//     console.log(dataSet);
+//     console.log(dataSet[0]);
+// }
 
 
 $(document).on('ready page:load',function() {
@@ -126,10 +130,10 @@ $(document).on('ready page:load',function() {
       if (Map.coords.length > 0) addMarkers(Map.coords);
   } 
 
-  //Get CSV from local directory
-  $.get("assets/activepermits2.csv", function(data) {
-      console.log("CSV file found");
-      data = processData(data);
-  });
+  // //Get CSV from local directory
+  // $.get("assets/activepermits2.csv", function(data) {
+  //     console.log("CSV file found");
+  //     data = processData(data);
+  // });
 
 });
