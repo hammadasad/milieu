@@ -2,7 +2,22 @@ class SitesController < ApplicationController
   before_action :ensure_logged_in, only: [:new, :create, :edit, :update, :destroy]
   before_action :load_site
 
+
   def index
+    
+    require 'csv'
+  
+    # CSV.foreach(Rails.root + "app/assets/csv/activepermits2.csv") do |row|
+    #   parsed_site = Site.new
+
+    #   parsed_site.address = row[5] + " " + row[6] + " " + row[7]+ ",Toronto" 
+    #   parsed_site.description = row[16]
+    #   parsed_site.contact_info = "Ash"
+    #   parsed_site.status = row[15]
+    #   parsed_site.type_of_property = row[18]
+
+    #   parsed_site.save
+    # end
 
     #@sites = Site.search(params[:search])
     @sites = if params[:latitude] && params[:longitude]
@@ -54,7 +69,7 @@ class SitesController < ApplicationController
 
   private
     def site_params
-      params.require(:site).permit(:address,:lattitude,:longitude,:description,:contact_info,:status)
+      params.require(:site).permit(:address,:lattitude,:longitude,:description,:contact_info,:status, :type_of_property)
     end
 
     def load_site
