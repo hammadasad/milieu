@@ -6,7 +6,8 @@ class SitesController < ApplicationController
   def index
     
     require 'csv'
-    
+    require 'rest-client'
+
     counter = 0
 
     # CSV.foreach(Rails.root + "app/assets/csv/activepermits2.csv") do |row|
@@ -25,6 +26,10 @@ class SitesController < ApplicationController
     #     break
     #   end
     # end
+
+    records = RestClient.get 'http://data.ottawa.ca/api/action/datastore_search?resource_id=a8ff7c33-1392-4943-9399-5a130ff27ecf&limit=10', {:accept => :json}
+
+    puts records.inspect
 
     #@sites = Site.search(params[:search])
     @sites = if params[:latitude] && params[:longitude]

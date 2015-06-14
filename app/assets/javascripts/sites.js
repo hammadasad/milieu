@@ -9,6 +9,12 @@ var markerMap = new hashMap();
 
 mapStyle = [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#004358"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#1f8a70"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#1f8a70"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#fd7400"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-20}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-17}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"},{"visibility":"on"},{"weight":0.9}]},{"elementType":"labels.text.fill","stylers":[{"visibility":"on"},{"color":"#ffffff"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-10}]},{},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"weight":0.7}]}];
 
+var dataRecords;
+
+records = $.get("http://data.ottawa.ca/api/action/datastore_search?resource_id=a8ff7c33-1392-4943-9399-5a130ff27ecf&limit=10", function(data) {
+  dataRecords = data;
+  alert("Load was performed");
+});
 
 function addMarkers(coords) {
 
@@ -18,8 +24,8 @@ function addMarkers(coords) {
             map: Map.canvas,
             icon: Map.nearby_marker_img
         });
-        console.log("Printing marker coords: " + coords);
-        console.log(coords.latitude);
+        // console.log("Printing marker coords: " + coords);
+        // console.log(coords.latitude);
         markerMap.puts(coords.latitude + "," + coords.longitude, myMarker);
     });
 };
@@ -148,10 +154,6 @@ $(document).on('ready page:load',function() {
       //console.log(latlong);
 
   });
-  // //Get CSV from local directory
-  // $.get("assets/activepermits2.csv", function(data) {
-  //     console.log("CSV file found");
-  //     data = processData(data);
-  // });
 
 });
+

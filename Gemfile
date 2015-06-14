@@ -16,6 +16,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jquery_mobile_rails'
 gem "geocoder"
 gem 'figaro'
+gem 'rest-client'
 
 
 
