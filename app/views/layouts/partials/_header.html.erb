@@ -1,34 +1,6 @@
-<div class='row'>
-    <div class="four columns">
-  </div>
-  <div class="four columns contain-to-grid">
-    <nav class="top-bar" data-topbar>
-      <ul class="title-area">
-        <li class="name">
-          <h1><li class="active"><%= link_to "Milieu", root_path %></li></h1>
-        </li>
-         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-      </ul>
-
-      <section class="top-bar-section">
-        <ul class='left'>
-            <li><%= link_to '+', new_site_path %></li>
-        </ul>
-        <!-- Right Nav Section -->
-        <ul class="right">
-          <% if !current_user %>
-            <li><%= link_to "Sign in", new_session_path %></li>
-            <li><%= link_to "Register", new_user_path %></li>
-          <% else %>
-            <li><%= link_to current_user.fname, '#' %></li>
-            <li><%= link_to 'Log Out', session_path(current_user), method: :delete %></li>
-          <% end %>
-        </ul>
-      </section>
-    </nav>
-  </div>
-  <div class="four columns">
-  </div>
-</div>
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="navbar-header" style="width:100px;display:block;margin:auto">
+        <h1 class="customTitle"> <%= link_to "Milieu", root_path %> </h1>
+     </div>
+</nav>
 

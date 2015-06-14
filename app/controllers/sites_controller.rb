@@ -3,10 +3,9 @@ class SitesController < ApplicationController
   before_action :load_site
 
   def index
+
     #@sites = Site.search(params[:search])
-    @sites = if params[:search]
-      Site.near(params[:search], 1, units: :km)
-    elsif params[:latitude] && params[:longitude]
+    @sites = if params[:latitude] && params[:longitude]
       Site.near([params[:latitude],params[:longitude]], 2, units: :km)
     else
       Site.all

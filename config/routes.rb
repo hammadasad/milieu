@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
 
-  get 'users/new'
-
-  get 'users/create'
-
-  root 'static_pages#home'
+  root 'sites#index'
 
   
   resources :comments

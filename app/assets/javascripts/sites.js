@@ -59,6 +59,50 @@ function geolocationError() {
   $('#current-location').after($locationError);
 };
 
+function hashMap() {
+    //Local variables
+    var map = {};    
+
+    //Methods
+    this.puts = function(key, value) {
+        map[key] = value;
+    }
+    this.gets = function(key) {
+        return map[key];
+    }
+    this.exists = function(key) {
+        return key in map; 
+    }
+    this.getMap = function() {
+        return map;
+    }    
+
+    return this;
+}
+
+ function processData(aCsv) {
+    var data = Papa.parse(aCsv);
+    var listOfEntries = data.data;
+    console.log(listOfEntries);
+    var csvTitles = listOfEntries[0];
+    var dataSet = [];
+    var listofAddresses = [];
+    for(var x = 1 ; x <= 20; x++ ) {
+        dataSet.push(listOfEntries[x]);
+        var anAddress = listOfEntries[x][5] + " " + listOfEntries[x][6] + " " + listOfEntries[x][7] + ",Toronto";
+        console.log(anAddress);
+        var isContains = $.inArray(anAddress, listofAddresses);
+        if(isContains === -1) {
+            addressToLatLng(anAddress);
+            listofAddresses.push(anAddress);
+        }
+    }
+
+    console.log(dataSet);
+    console.log(dataSet[0]);
+}
+
+
 $(document).on('ready page:load',function() {
   // Search
   $("#search-input").focus(function() {
@@ -81,5 +125,11 @@ $(document).on('ready page:load',function() {
       initializeMap();
       if (Map.coords.length > 0) addMarkers(Map.coords);
   } 
+
+  //Get CSV from local directory
+  $.get("assets/activepermits2.csv", function(data) {
+      console.log("CSV file found");
+      data = processData(data);
+  });
 
 });
