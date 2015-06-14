@@ -8,6 +8,8 @@
 </head>
 <body>
 
+<%= render :partial => '/layouts/partials/header' %>
+
 <div class="flash-notifications">
 	<% if flash[:notice] %>
 		<p id="notice"><%= flash[:notice] %></p>

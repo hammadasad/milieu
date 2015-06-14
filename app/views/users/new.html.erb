@@ -1,27 +1,45 @@
-<section id="home-1">
-  <span class="thetitle" style="padding-top : 5vh !important; ">Milieu</span> 
-  <div id="login-signup-container" style="height: 425px;">
-    <div class="login-signup-header">
-      <div class="login-header">
-        <%= link_to "Login", root_path %>
+<%= form_for @user do |f| %>
+  <fieldset>
+    <legend><h1>Sign Up</h1></legend>
+    <!-- Error messages if user fills in form wrong.. -->
+    <% if @user.errors.any? %>
+      <div class="error_messages">
+        <h2>Form is invalid</h2>
+        <ul>
+          <% for message in @user.errors.full_messages %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
       </div>
-      <div class="signup-header" style="border-bottom: 5px solid #ee6508;">
-        <%= link_to "Sign Up", new_user_path %>
-      </div>
-    </div>
-    <%= form_for(@user) do |f| %>
-    <div class="halfer">
-      <%= f.text_field :fname, placeholder: "FIRST NAME", class: "half-login-field" %>
-      <%= f.text_field :lname, placeholder: "LAST NAME", class: "half-login-field" %>
-    </div>
-      <%= f.text_field :user_name, placeholder: "USERNAME", class: "login-field" %>
-      <%= f.email_field :email, placeholder: "EMAIL", class: "login-field" %>
-    <div class="halfer">
-      <%= f.password_field :password, placeholder: "PASSWORD", class: "half-login-field" %>
-      <%= f.password_field :password_confirmation, placeholder: "PASSWORD CONFIRMATION", class: "half-login-field" 
-      %>
-    </div>
-      <%= f.submit "Sign Up", class: "login_button" %>
     <% end %>
-  </div>
-</section>
+
+    <div class="field">
+      <%= f.label :first_name %>
+      <%= f.text_field :fname, placeholder: "First Name" %>
+    </div>
+     <div class="field">
+      <%= f.label :last_name %>
+      <%= f.text_field :lname, placeholder: "Last Name" %>
+    </div>
+     <div class="field">
+      <%= f.label :user_name %>
+      <%= f.text_field :user_name, placeholder: "User Name" %>
+    </div>
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email, placeholder: "Email" %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password, placeholder: "Password" %>
+    </div>
+    <div class="field">
+      <%= f.label :confirm_password %>
+      <%= f.password_field :password_confirmation, placeholder: "Confirm Password" %>
+    </div>
+    <div class="actions"><%= f.submit "Save" %></div>
+  <% end %>
+
+</fieldset>
+
+

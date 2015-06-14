@@ -1,10 +1,5 @@
 class User < ActiveRecord::Base
-	# attr_accessor :password, :password_confirmation
-	# def authenticate
 	has_secure_password
-
-	has_many :Comments
-
-	validates :text, presence: true
-	
+  	validates_presence_of :fname, :lname, :email, :user_name, :password_digest
+  	has_many :comments
 end

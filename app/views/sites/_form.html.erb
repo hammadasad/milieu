@@ -1,0 +1,18 @@
+<%= form_for @site do |f| %>
+  <%= render 'errors' %>
+  <div>
+    <%= f.text_field "address", placeholder: "Name" %>
+  </div>
+  <div>
+      <%= f.text_field "description", placeholder: "description" %>
+  </div>
+  <div>
+      <%= f.text_field "contact_info", placeholder: "Price in cents" %>
+  </div>
+  <div>
+      <%= f.select "status", [['pending',1], ['completed',2], ['other',3], ['other2',4]] %>
+  </div>
+  <div>
+    <%= f.submit "Save", class: 'button' %>
+  </div>
+<% end %>

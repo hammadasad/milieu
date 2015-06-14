@@ -7,6 +7,7 @@ class SitesController < ApplicationController
   end
 
   def new
+    @site = Site.new
   end
 
   def create
@@ -46,6 +47,8 @@ class SitesController < ApplicationController
     end
 
     def load_site
-      @site = Site.find(params[:id])
+      if params[:id] != nil
+        @site = Site.find(params[:id])
+      end
     end
 end
