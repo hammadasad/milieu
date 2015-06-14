@@ -5,9 +5,9 @@
                 <img src="/assets/stockPhoto2.jpg"></img>
         	</div>
         	<div class="textDiv">
-        	    <h class="address"><%= sites.address %></h><br>
-        	    <h class="description"><%= sites.description %></h><br>
-        	    <h class="status"><%= sites.status %></h>
+        	    <h id="<%= sites.latitude %>,<%= sites.longitude %>Address" class="address"><%= sites.address %></h><br>
+        	    <h id="<%= sites.latitude %><%= sites.longitude %>Description" class="description"><%= sites.description %></h><br>
+        	    <h id="<%= sites.latitude %>,<%= sites.longitude %>Status" class="status"><%= sites.status %></h>
         	</div>
         </div>
 	<% end %>

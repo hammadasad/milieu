@@ -2,6 +2,7 @@
 // # All this logic will automatically be available in application.js.
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 
+vex.defaultOptions.className = 'vex-theme-wireframe';
 var Map = {};
 Map.nearby_marker_img = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
 Map.selected_marker_img = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
@@ -144,9 +145,31 @@ $(document).on('ready page:load',function() {
   $('.sites').on('click', function() {
       console.log("clicked on a site");
       var coordinates = $(this).attr('id');
+      console.log("The id of the panel is: " + coordinates);
       //console.log(coordinates);
       var aMarker = markerMap.gets(coordinates);
-      //console.dir(aMarker);
+      // var contentString = "<div><p>" + coordinates + "</p></div>"
+      // var infowindow = new google.maps.InfoWindow({
+      //     content: contentString
+      // });
+      // infowindow.open(Map,aMarker)
+      //aMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+      console.dir(aMarker);
+      var parameter = "#" + coordinates + "Description";
+      console.log(parameter);
+      var description = $(parameter).text();
+      console.log(description);
+      //var status = $("#" + coordinates + "Status").val();
+      //$.get('/');
+      vex.dialog.alert({
+          message: coordinates,
+          input:"<div><img src='/assets/stockPhoto2.jpg'></img></div><br><h3>"+description+"</h3>",
+          showCloseButton: true,
+          escapeButtonCloses: true,
+          overlayClosesOnClick: true,
+          callback: function() {
+          }
+      });
       //aMarker.setIcon(Map.selected_marker_img);
 
       //aMarker.icon = Map.selected_marker_img;
