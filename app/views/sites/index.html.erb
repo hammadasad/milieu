@@ -1,7 +1,19 @@
 <section id="sites-panel">
-	<div class='list-group' id='sites'>
+	<%= @sites.each do |sites| %>
+        <div class='sites' id="<%= sites.latitude %>,<%= sites.longitude %>">
+        	<div class="pictureDiv">
+                <img src="/assets/stockPhoto2.jpg"></img>
+        	</div>
+        	<div class="textDiv">
+        	    <h class="address"><%= sites.address %></h><br>
+        	    <h class="description"><%= sites.description %></h><br>
+        	    <h class="status"><%= sites.status %></h>
+        	</div>
+        </div>
+	<% end %>
+<!-- 	<div class='list-group' id='sites'>
       <%= render @sites %>
-    </div>
+    </div> -->
 </section>
 
 <div id="map-canvas">

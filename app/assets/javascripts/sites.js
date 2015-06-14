@@ -3,7 +3,9 @@
 // # You can use CoffeeScript in this file: http://coffeescript.org/
 
 var Map = {};
-Map.nearby_marker_img = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+Map.nearby_marker_img = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png";
+Map.selected_marker_img = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+var markerMap = new hashMap();
 
 mapStyle = [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#004358"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#1f8a70"}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#1f8a70"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#fd7400"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-20}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-17}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#ffffff"},{"visibility":"on"},{"weight":0.9}]},{"elementType":"labels.text.fill","stylers":[{"visibility":"on"},{"color":"#ffffff"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"simplified"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"lightness":-10}]},{},{"featureType":"administrative","elementType":"geometry","stylers":[{"color":"#1f8a70"},{"weight":0.7}]}];
 
@@ -16,8 +18,10 @@ function addMarkers(coords) {
             map: Map.canvas,
             icon: Map.nearby_marker_img
         });
+        console.log("Printing marker coords: " + coords);
+        console.log(coords.latitude);
+        markerMap.puts(coords.latitude + "," + coords.longitude, myMarker);
     });
-
 };
 
 function initializeMap() {
@@ -25,7 +29,8 @@ function initializeMap() {
     Map.options = {
         zoom: 14 ,
         center: new google.maps.LatLng(Map.latitude, Map.longitude),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        streetViewControl: false
     };
 
     Map.canvas = new google.maps.Map($('#map-canvas')[0], Map.options);
@@ -130,6 +135,19 @@ $(document).on('ready page:load',function() {
       if (Map.coords.length > 0) addMarkers(Map.coords);
   } 
 
+  $('.sites').on('click', function() {
+      console.log("clicked on a site");
+      var coordinates = $(this).attr('id');
+      //console.log(coordinates);
+      var aMarker = markerMap.gets(coordinates);
+      //console.dir(aMarker);
+      //aMarker.setIcon(Map.selected_marker_img);
+
+      //aMarker.icon = Map.selected_marker_img;
+      //var latlong = coordinates.split(',');
+      //console.log(latlong);
+
+  });
   // //Get CSV from local directory
   // $.get("assets/activepermits2.csv", function(data) {
   //     console.log("CSV file found");
