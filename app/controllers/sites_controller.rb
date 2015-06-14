@@ -3,7 +3,19 @@ class SitesController < ApplicationController
   before_action :load_site
 
   def index
-    @sites = Site.all
+    #@sites = Site.search(params[:search])
+    @sites = if params[:search]
+      Site.near(params[:search], 1, units: :km)
+    elsif params[:latitude] && params[:longitude]
+      Site.near([params[:latitude],params[:longitude]], 2, units: :km)
+    else
+      Site.all
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def new
@@ -11,7 +23,7 @@ class SitesController < ApplicationController
   end
 
   def create
-    @site = current_user.sites.build(site_params)
+    @site = Site.new(site_params)
     if @site.save
       redirect_to site_path(@site), notice: "site posted"
     else
@@ -21,7 +33,7 @@ class SitesController < ApplicationController
   end
 
   def show
-    @comment = @site.comments.build
+    @nearby_sites = @site.nearbys(2, units: :km)
   end
 
   def edit

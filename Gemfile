@@ -14,6 +14,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'font-awesome-rails', '~> 4.3.0.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jquery_mobile_rails'
+gem "geocoder"
+gem 'figaro'
 
 group :development, :test do
   gem 'byebug'

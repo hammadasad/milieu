@@ -1,6 +1,3 @@
-<h1>Sites#show</h1>
-<p>Find me in app/views/sites/show.html.erb</p>
-
 <h1><%= @site.address %></h1>
 <h3><%= @site.description %></h3>
 
@@ -16,8 +13,26 @@
 <br>
 <hr>
 
-<%= form_for [@site, @comment] do |f| %>
-	<%= f.label :text, "Add Comment" %>
-	<%= f.text_area :text %>
-	<%= f.submit %>
+
+<hr>
+
+<div id="map-canvas">
+
+</div>
+
+<% if @nearby_sites.present? %>
+  <h2>Nearby Sites</h2>
+  <ul>
+    <% @nearby_sites.each do |nr| %>
+      <li><%= "#{nr.address}, #{nr.distance * 100}m" %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= javascript_tag do %>
+  Map.latitude = <%= @site.latitude.to_f %>;
+  Map.longitude = <%= @site.longitude.to_f %>;
+  Map.showMarker = true;
+
+  Map.coords = <%= raw @nearby_sites.map { |r| { latitude: r.latitude.to_f, longitude: r.longitude.to_f } }.to_json %>
 <% end %>

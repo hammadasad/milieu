@@ -1,2 +1,12 @@
 <h1>Map Goes Here</h1>
 <p>Find me in app/views/sites/index.html.erb</p>
+
+<div id="map-canvas">
+
+</div>
+
+<%= javascript_tag do %>
+	Map.latitude = <%= @sites.first.latitude.to_f %>;
+	Map.longitude = <%= @sites.first.longitude.to_f %>;
+	Map.coords = <%= raw @sites.map { |r| { latitude: r.latitude.to_f, longitude: r.longitude.to_f } }.to_json %>
+<% end %>
