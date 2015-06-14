@@ -3,6 +3,23 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #map-canvas {
+    margin: auto;
   height: 900px;
-  width: 100%;
+  width: 75%;
+}
+
+#sites-panel {
+    margin: auto;
+    float: left;
+    width: 25%;
+    height: 900px;
+    background-color: red;
+    overflow-y: scroll;
+    color: white;
+}
+
+#sites {
+    height: 100px;
+    width: 100%;
+    background-color: blue;
 }

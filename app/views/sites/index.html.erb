@@ -1,6 +1,16 @@
+<section id="sites-panel">
+	<div class='list-group' id='sites'>
+      <%= render @sites %>
+    </div>
+</section>
+
 <div id="map-canvas">
 
 </div>
+
+<ul class="nav nav-tabs nav-justified">
+  ...
+</ul>
 
 <%= javascript_tag do %>
 	Map.latitude = <%= @sites.first.latitude.to_f %>;

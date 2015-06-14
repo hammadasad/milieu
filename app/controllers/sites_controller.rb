@@ -9,22 +9,22 @@ class SitesController < ApplicationController
     
     counter = 0
 
-    CSV.foreach(Rails.root + "app/assets/csv/activepermits2.csv") do |row|
-      counter += 1
+    # CSV.foreach(Rails.root + "app/assets/csv/activepermits2.csv") do |row|
+    #   counter += 1
 
-      parsed_site = Site.new
-      parsed_site.address = row[5] + " " + row[6] + " " + row[7]+ ",Toronto" 
-      parsed_site.description = row[16]
-      parsed_site.contact_info = "Ash"
-      parsed_site.status = row[15]
-      parsed_site.type_of_property = row[18]
+    #   parsed_site = Site.new
+    #   parsed_site.address = row[5] + " " + row[6] + " " + row[7]+ ",Toronto" 
+    #   parsed_site.description = row[16]
+    #   parsed_site.contact_info = "Ash"
+    #   parsed_site.status = row[15]
+    #   parsed_site.type_of_property = row[18]
 
-      parsed_site.save
+    #   parsed_site.save
 
-      if(counter == 20)
-        break
-      end
-    end
+    #   if(counter == 20)
+    #     break
+    #   end
+    # end
 
     #@sites = Site.search(params[:search])
     @sites = if params[:latitude] && params[:longitude]
