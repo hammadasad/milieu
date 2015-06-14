@@ -13,7 +13,7 @@ var dataRecords;
 
 records = $.get("http://data.ottawa.ca/api/action/datastore_search?resource_id=a8ff7c33-1392-4943-9399-5a130ff27ecf&limit=10", function(data) {
   dataRecords = data;
-  alert("Load was performed");
+  //alert("Load was performed");
 });
 
 function addMarkers(coords) {

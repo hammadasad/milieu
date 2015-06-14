@@ -8,8 +8,6 @@ class SitesController < ApplicationController
     require 'csv'
     require 'rest-client'
 
-    counter = 0
-
     # CSV.foreach(Rails.root + "app/assets/csv/activepermits2.csv") do |row|
     #   counter += 1
 
@@ -26,17 +24,52 @@ class SitesController < ApplicationController
     #     break
     #   end
     # end
+    require 'json'
+    require 'csv'
 
-    records = RestClient.get 'http://data.ottawa.ca/api/action/datastore_search?resource_id=a8ff7c33-1392-4943-9399-5a130ff27ecf&limit=10', {:accept => :json}
+    data_json = RestClient.get 'http://data.ottawa.ca/api/action/datastore_search?resource_id=a8ff7c33-1392-4943-9399-5a130ff27ecf', {:accept => :json}
+    data = JSON.parse(data_json)
 
-    puts records.inspect
+    records = data["result"]["records"]
 
-    #@sites = Site.search(params[:search])
-    @sites = if params[:latitude] && params[:longitude]
-      Site.near([params[:latitude],params[:longitude]], 2, units: :km)
-    else
-      Site.all
+    offset = data["result"]["offset"]
+    total = data["result"]["total"]
+
+    # # Get rest of data
+    # counter = 1
+    # until (offset <= total) do
+    #   data_json[counter] = RestClient.get 'http://data.ottawa.ca/api/action/datastore_search?offset=100&resource_id=a8ff7c33-1392-4943-9399-5a130ff27ecf', {:accept => :json}
+    #   data[counter] = JSON.parse(data_json)
+    #   records[counter] = data["result"]["records"]
+    #   offset = data[counter]["result"]["offset"]
+    #   counter += 1
+    # end 
+
+    # # Put in database
+    # i = 0
+    # until (i <= counter)
+      records.each do |rec|
+        single_rec = Site.new
+        single_rec.address = rec["ST #"] + rec["ROAD"] + ", " + rec["MUNICIPALITY"] + ", Ottawa"
+        single_rec.description = rec["DESCRIPTION"]
+        single_rec.contact_info = rec["CONTRACTOR"]
+        single_rec.status = rec["APPL. TYPE"]
+        single_rec.type_of_property = ["BLG TYPE"]
+
+        single_rec.save
+      end
+    # end
+
+
+    csv_string = CSV.generate do |csv|
+      records.each do |hash|
+        csv << hash.values
+      end
     end
+
+    File.write(Rails.root + "app/assets/csv/records.csv", csv_string)
+
+    @sites = Site.all
 
     respond_to do |format|
       format.html
